@@ -1,11 +1,13 @@
 CHANGES
 =======
 
-3.6.4 (unreleased)
+4.0.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add support for PyPy, and Python 3.4, 3.5 and 3.6.
 
+- Remove test dependency on ``zope.app.testing``,
+  ``zope.app.zcmlfiles`` and many others.
 
 3.6.3 (2011-05-23)
 ------------------

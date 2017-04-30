@@ -12,10 +12,10 @@ terse message and that sets the response status.
 There is a simple view registered in ``ftesting.zcml`` which raises
 ``Exception()``:
 
-  >>> print http(r"""
+  >>> print(http(r"""
   ... GET /error.html HTTP/1.1
-  ... """)
-  HTTP/1.1 500 Internal Server Error
+  ... """))
+  HTTP/1.0 500 Internal Server Error
   ...
     A system error occurred.
   ...
@@ -26,10 +26,10 @@ view in ``ftesting.zcml``, too, that will raise a component lookup
 error. So if we call ``componentlookuperror.html``, we should get the
 error message:
 
-  >>> print http(r"""
+  >>> print(http(r"""
   ... GET /componentlookuperror.html HTTP/1.1
-  ... """)
-  HTTP/1.1 500 Internal Server Error
+  ... """))
+  HTTP/1.0 500 Internal Server Error
   ...
     A system error occurred.
   ...
