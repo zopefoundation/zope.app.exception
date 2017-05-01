@@ -13,27 +13,27 @@
 ##############################################################################
 """Test Unauthorized Exception Views"""
 
-from unittest import TestCase, main, makeSuite
+import unittest
 from zope import component, interface
 import zope.browserpage.namedtemplate
 from zope.publisher.browser import TestRequest
 from zope.authentication.interfaces import IAuthentication
 from zope.security.interfaces import IPrincipal
-from zope.app.testing import ztapi
-from zope.app.exception.browser.unauthorized import Unauthorized
-from zope.app.testing.placelesssetup import PlacelessSetup
 
+from zope.app.exception.browser.unauthorized import Unauthorized
+from zope.component.testing import PlacelessSetup
+
+@interface.implementer(IPrincipal)  # this is a lie
 class DummyPrincipal(object):
-    interface.implements(IPrincipal)  # this is a lie
 
     def __init__(self, id):
         self.id = id
 
-    def getId(self):
+    def getId(self): # pragma: no cover
         return self.id
 
+@interface.implementer(IAuthentication)  # this is a lie
 class DummyAuthUtility(object):
-    interface.implements(IAuthentication)  # this is a lie
 
     status = None
 
@@ -43,23 +43,23 @@ class DummyAuthUtility(object):
         if self.status is not None:
             self.request.response.setStatus(self.status)
 
+@component.adapter(Unauthorized)
+@interface.implementer(zope.browserpage.namedtemplate.INamedTemplate)
 class DummyTemplate(object):
 
     def __init__(self, context):
         self.context = context
 
-    component.adapts(Unauthorized)
-    interface.implements(zope.browserpage.namedtemplate.INamedTemplate)
 
     def __call__(self):
         return 'You are not authorized'
 
-class Test(PlacelessSetup, TestCase):
+class Test(PlacelessSetup, unittest.TestCase):
 
     def setUp(self):
         super(Test, self).setUp()
         self.auth = DummyAuthUtility()
-        ztapi.provideUtility(IAuthentication, self.auth)
+        component.provideUtility(self.auth, IAuthentication)
 
     def tearDown(self):
         super(Test, self).tearDown()
@@ -119,7 +119,7 @@ class Test(PlacelessSetup, TestCase):
         self.assertEqual(self.auth.principal_id, 23)
 
 def test_suite():
-    return makeSuite(Test)
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
-if __name__=='__main__':
-    main(defaultTest='test_suite')
+if __name__ == '__main__':
+    unittest.main(defaultTest='test_suite')
