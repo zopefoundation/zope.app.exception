@@ -1,7 +1,7 @@
 CHANGES
 =======
 
-4.0.0 (unreleased)
+4.0.0 (2017-05-01)
 ------------------
 
 - Add support for PyPy, and Python 3.4, 3.5 and 3.6.
