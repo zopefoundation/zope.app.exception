@@ -4,7 +4,8 @@ CHANGES
 4.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix rendering of user errors on Python 3.
+  See `issue 2 <https://github.com/zopefoundation/zope.app.exception/issues/2>`_.
 
 
 4.0.0 (2017-05-01)

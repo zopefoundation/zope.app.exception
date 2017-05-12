@@ -57,6 +57,39 @@ class TestMisc(unittest.TestCase):
         from zope.browser.interfaces import ISystemErrorView
         self.assertEqual(interfaces.ISystemErrorView, ISystemErrorView)
 
+class TestUserpt(unittest.TestCase):
+
+    layer = AppExceptionLayer
+
+    def _render_with_context(self, context):
+        from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
+        from zope.publisher.browser import TestRequest
+        import os
+        path = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', 'user.pt')
+
+        template = ViewPageTemplateFile(path)
+
+        class Instance(object):
+            def __init__(self):
+                self.context = context
+                self.request = TestRequest()
+                self.request.setPrincipal(self)
+
+            title = 'principal'
+
+        instance = Instance()
+
+        return template(instance)
+
+    def test_render_with_exception(self):
+        s = self._render_with_context(Exception("This is the message"))
+        self.assertIn("This is the message", s)
+
+    def test_render_with_iterable(self):
+        s = self._render_with_context(["Just an iterable"])
+        self.assertIn("Just an iterable", s)
+
+
 def test_suite():
     TestComponentLookupError.layer = AppExceptionLayer
 
