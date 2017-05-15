@@ -4,7 +4,7 @@
 <div metal:fill-slot="body">
 
   <ul>
-    <li tal:repeat="part context" tal:content="part"
+    <li tal:repeat="part context/args|context" tal:content="part"
         i18n:translate="">Error message</li>
   </ul>
 
