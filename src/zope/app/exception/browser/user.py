@@ -11,6 +11,7 @@
 ##############################################################################
 """Support for user views"""
 
+
 class UserErrorView(object):
 
     def title(self):

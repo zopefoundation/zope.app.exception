@@ -4,7 +4,6 @@ import unittest
 from webtest import TestApp
 
 
-
 class BrowserTestCase(unittest.TestCase):
 
     layer = None

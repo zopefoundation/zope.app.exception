@@ -23,14 +23,16 @@ from zope.security.interfaces import IPrincipal
 from zope.app.exception.browser.unauthorized import Unauthorized
 from zope.component.testing import PlacelessSetup
 
+
 @interface.implementer(IPrincipal)  # this is a lie
 class DummyPrincipal(object):
 
     def __init__(self, id):
         self.id = id
 
-    def getId(self): # pragma: no cover
+    def getId(self):  # pragma: no cover
         return self.id
+
 
 @interface.implementer(IAuthentication)  # this is a lie
 class DummyAuthUtility(object):
@@ -43,6 +45,7 @@ class DummyAuthUtility(object):
         if self.status is not None:
             self.request.response.setStatus(self.status)
 
+
 @component.adapter(Unauthorized)
 @interface.implementer(zope.browserpage.namedtemplate.INamedTemplate)
 class DummyTemplate(object):
@@ -50,9 +53,9 @@ class DummyTemplate(object):
     def __init__(self, context):
         self.context = context
 
-
     def __call__(self):
         return 'You are not authorized'
+
 
 class Test(PlacelessSetup, unittest.TestCase):
 
@@ -69,7 +72,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         exception = Exception()
         try:
             raise exception
-        except:
+        except:  # noqa: E722 do not use bare 'except'
             pass
         request = TestRequest()
         request.setPrincipal(DummyPrincipal(23))
@@ -95,10 +98,10 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertEqual(self.auth.principal_id, 23)
 
     def testRedirect(self):
-        exception= Exception()
+        exception = Exception()
         try:
             raise exception
-        except:
+        except:  # noqa: E722 do not use bare 'except'
             pass
         request = TestRequest()
         request.setPrincipal(DummyPrincipal(23))
@@ -118,8 +121,10 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.failUnless(self.auth.request is request)
         self.assertEqual(self.auth.principal_id, 23)
 
+
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
+
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')

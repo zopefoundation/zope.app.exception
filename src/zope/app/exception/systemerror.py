@@ -16,6 +16,7 @@
 import zope.interface
 import zope.browser.interfaces
 
+
 @zope.interface.implementer(zope.browser.interfaces.ISystemErrorView)
 class SystemErrorView(object):
 
