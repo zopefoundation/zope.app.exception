@@ -15,7 +15,7 @@ There is a simple view registered in ``ftesting.zcml`` which raises
   >>> print(http(r"""
   ... GET /error.html HTTP/1.1
   ... """))
-  HTTP/1.0 500 Internal Server Error
+  HTTP/1.1 500 Internal Server Error
   ...
     A system error occurred.
   ...
@@ -29,7 +29,7 @@ error message:
   >>> print(http(r"""
   ... GET /componentlookuperror.html HTTP/1.1
   ... """))
-  HTTP/1.0 500 Internal Server Error
+  HTTP/1.1 500 Internal Server Error
   ...
     A system error occurred.
   ...

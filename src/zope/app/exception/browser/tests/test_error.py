@@ -20,6 +20,7 @@ from zope.app.exception.testing import AppExceptionLayer
 from zope.app.exception.browser.tests import BrowserTestCase
 from zope.app.wsgi.testlayer import http
 
+
 class RaiseError(object):
 
     def __call__(self):
@@ -44,6 +45,7 @@ class TestComponentLookupError(BrowserTestCase):
         self.assertIn(
             'The page that you are trying to access is not available', body)
 
+
 class TestMisc(unittest.TestCase):
 
     def test_user(self):
@@ -57,6 +59,7 @@ class TestMisc(unittest.TestCase):
         from zope.browser.interfaces import ISystemErrorView
         self.assertEqual(interfaces.ISystemErrorView, ISystemErrorView)
 
+
 class TestUserpt(unittest.TestCase):
 
     layer = AppExceptionLayer
@@ -65,7 +68,8 @@ class TestUserpt(unittest.TestCase):
         from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
         from zope.publisher.browser import TestRequest
         import os
-        path = os.path.join(os.path.abspath(os.path.dirname(__file__)), '..', 'user.pt')
+        path = os.path.join(os.path.abspath(
+            os.path.dirname(__file__)), '..', 'user.pt')
 
         template = ViewPageTemplateFile(path)
 
@@ -98,10 +102,9 @@ def test_suite():
         # Strip leading \n
         query_str = query_str.lstrip()
         kwargs.setdefault('handle_errors', True)
-        if not isinstance(query_str, bytes):
+        if not isinstance(query_str, bytes):  # always true on PY3
             query_str = query_str.encode("utf-8")
         return http(wsgi_app, query_str, *args, **kwargs)
-
 
     systemerror = doctest.DocFileSuite(
         '../systemerror.rst',

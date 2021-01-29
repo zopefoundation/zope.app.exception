@@ -15,6 +15,7 @@
 """
 __docformat__ = 'restructuredtext'
 
+
 class NotFound(object):
     """`NotFound` Error View
 

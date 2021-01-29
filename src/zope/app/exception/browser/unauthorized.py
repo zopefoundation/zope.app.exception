@@ -19,6 +19,7 @@ from zope.browserpage import namedtemplate
 from zope.component import getUtility
 from zope.browserpage import ViewPageTemplateFile
 
+
 class Unauthorized(BrowserPage):
 
     def __call__(self):
@@ -27,8 +28,10 @@ class Unauthorized(BrowserPage):
         self.request.response.setStatus(403)
 
         # make sure that squid does not keep the response in the cache
-        self.request.response.setHeader('Expires', 'Mon, 26 Jul 1997 05:00:00 GMT')
-        self.request.response.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate')
+        self.request.response.setHeader(
+            'Expires', 'Mon, 26 Jul 1997 05:00:00 GMT')
+        self.request.response.setHeader(
+            'Cache-Control', 'no-store, no-cache, must-revalidate')
         self.request.response.setHeader('Pragma', 'no-cache')
 
         principal = self.request.principal
@@ -38,6 +41,7 @@ class Unauthorized(BrowserPage):
             return self.template()
 
     template = namedtemplate.NamedTemplate('default')
+
 
 default_template = namedtemplate.NamedTemplateImplementation(
     ViewPageTemplateFile('unauthorized.pt'), Unauthorized)
