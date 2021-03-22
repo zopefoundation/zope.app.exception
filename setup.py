@@ -27,7 +27,7 @@ def read(*rnames):
         return f.read()
 
 
-version = '4.1.0.dev0'
+version = '4.1.0'
 
 tests_require = [
     'webtest',
