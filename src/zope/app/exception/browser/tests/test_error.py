@@ -15,10 +15,10 @@
 """
 import doctest
 import unittest
-from zope.component.interfaces import ComponentLookupError
-from zope.app.exception.testing import AppExceptionLayer
 from zope.app.exception.browser.tests import BrowserTestCase
+from zope.app.exception.testing import AppExceptionLayer
 from zope.app.wsgi.testlayer import http
+from zope.interface.interfaces import ComponentLookupError
 
 
 class RaiseError(object):

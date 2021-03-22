@@ -94,7 +94,7 @@ class Test(PlacelessSetup, unittest.TestCase):
                          'no-store, no-cache, must-revalidate')
 
         # Make sure the auth utility was called
-        self.failUnless(self.auth.request is request)
+        self.assertIs(self.auth.request, request)
         self.assertEqual(self.auth.principal_id, 23)
 
     def testRedirect(self):
@@ -112,19 +112,15 @@ class Test(PlacelessSetup, unittest.TestCase):
         res = u()
 
         # Make sure that the template was not rendered
-        self.assert_(res is None)
+        self.assertIsNone(res)
 
         # Make sure the auth's redirect is honored
         self.assertEqual(request.response.getStatus(), 303)
 
         # Make sure the auth utility was called
-        self.failUnless(self.auth.request is request)
+        self.assertIs(self.auth.request, request)
         self.assertEqual(self.auth.principal_id, 23)
 
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
-
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
