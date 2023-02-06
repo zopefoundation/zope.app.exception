@@ -15,10 +15,12 @@
 """
 import doctest
 import unittest
-from zope.app.exception.browser.tests import BrowserTestCase
-from zope.app.exception.testing import AppExceptionLayer
+
 from zope.app.wsgi.testlayer import http
 from zope.interface.interfaces import ComponentLookupError
+
+from zope.app.exception.browser.tests import BrowserTestCase
+from zope.app.exception.testing import AppExceptionLayer
 
 
 class RaiseError(object):
@@ -55,8 +57,9 @@ class TestMisc(unittest.TestCase):
         self.assertEqual(view.title(), self.__class__.__name__)
 
     def test_interfaces(self):
-        from zope.app.exception import interfaces
         from zope.browser.interfaces import ISystemErrorView
+
+        from zope.app.exception import interfaces
         self.assertEqual(interfaces.ISystemErrorView, ISystemErrorView)
 
 
@@ -65,9 +68,10 @@ class TestUserpt(unittest.TestCase):
     layer = AppExceptionLayer
 
     def _render_with_context(self, context):
+        import os
+
         from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
         from zope.publisher.browser import TestRequest
-        import os
         path = os.path.join(os.path.abspath(
             os.path.dirname(__file__)), '..', 'user.pt')
 

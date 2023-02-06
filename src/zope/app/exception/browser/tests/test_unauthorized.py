@@ -14,14 +14,16 @@
 """Test Unauthorized Exception Views"""
 
 import unittest
-from zope import component, interface
+
 import zope.browserpage.namedtemplate
-from zope.publisher.browser import TestRequest
 from zope.authentication.interfaces import IAuthentication
+from zope.component.testing import PlacelessSetup
+from zope.publisher.browser import TestRequest
 from zope.security.interfaces import IPrincipal
 
+from zope import component
+from zope import interface
 from zope.app.exception.browser.unauthorized import Unauthorized
-from zope.component.testing import PlacelessSetup
 
 
 @interface.implementer(IPrincipal)  # this is a lie
