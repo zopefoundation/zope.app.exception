@@ -27,7 +27,7 @@ from zope.app.exception.browser.unauthorized import Unauthorized
 
 
 @interface.implementer(IPrincipal)  # this is a lie
-class DummyPrincipal(object):
+class DummyPrincipal:
 
     def __init__(self, id):
         self.id = id
@@ -37,7 +37,7 @@ class DummyPrincipal(object):
 
 
 @interface.implementer(IAuthentication)  # this is a lie
-class DummyAuthUtility(object):
+class DummyAuthUtility:
 
     status = None
 
@@ -50,7 +50,7 @@ class DummyAuthUtility(object):
 
 @component.adapter(Unauthorized)
 @interface.implementer(zope.browserpage.namedtemplate.INamedTemplate)
-class DummyTemplate(object):
+class DummyTemplate:
 
     def __init__(self, context):
         self.context = context
@@ -62,12 +62,12 @@ class DummyTemplate(object):
 class Test(PlacelessSetup, unittest.TestCase):
 
     def setUp(self):
-        super(Test, self).setUp()
+        super().setUp()
         self.auth = DummyAuthUtility()
         component.provideUtility(self.auth, IAuthentication)
 
     def tearDown(self):
-        super(Test, self).tearDown()
+        super().tearDown()
 
     def testUnauthorized(self):
         component.provideAdapter(DummyTemplate, name="default")

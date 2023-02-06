@@ -23,13 +23,13 @@ from zope.app.exception.browser.tests import BrowserTestCase
 from zope.app.exception.testing import AppExceptionLayer
 
 
-class RaiseError(object):
+class RaiseError:
 
     def __call__(self):
         raise Exception()
 
 
-class RaiseComponentLookupError(object):
+class RaiseComponentLookupError:
 
     def __call__(self):
         raise ComponentLookupError()
@@ -77,7 +77,7 @@ class TestUserpt(unittest.TestCase):
 
         template = ViewPageTemplateFile(path)
 
-        class Instance(object):
+        class Instance:
             def __init__(self):
                 self.context = context
                 self.request = TestRequest()
@@ -106,8 +106,7 @@ def test_suite():
         # Strip leading \n
         query_str = query_str.lstrip()
         kwargs.setdefault('handle_errors', True)
-        if not isinstance(query_str, bytes):  # always true on PY3
-            query_str = query_str.encode("utf-8")
+        query_str = query_str.encode("utf-8")
         return http(wsgi_app, query_str, *args, **kwargs)
 
     systemerror = doctest.DocFileSuite(

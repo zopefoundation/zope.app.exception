@@ -1,4 +1,3 @@
-
 import unittest
 
 from webtest import TestApp
@@ -9,7 +8,7 @@ class BrowserTestCase(unittest.TestCase):
     layer = None
 
     def setUp(self):
-        super(BrowserTestCase, self).setUp()
+        super().setUp()
         self._testapp = TestApp(self.layer.make_wsgi_app())
 
     def publish(self, path, basic=None, headers=None, handle_errors=False):

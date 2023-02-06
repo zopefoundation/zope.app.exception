@@ -12,7 +12,7 @@
 """Support for user views"""
 
 
-class UserErrorView(object):
+class UserErrorView:
 
     def title(self):
         return self.context.__class__.__name__

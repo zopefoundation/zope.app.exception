@@ -16,7 +16,7 @@
 __docformat__ = 'restructuredtext'
 
 
-class NotFound(object):
+class NotFound:
     """`NotFound` Error View
 
     `NotFound` errors should return 404 instead of 200.
