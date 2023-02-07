@@ -14,10 +14,10 @@
 """Unauthorized Exception View Class"""
 
 from zope.authentication.interfaces import IAuthentication
-from zope.publisher.browser import BrowserPage
+from zope.browserpage import ViewPageTemplateFile
 from zope.browserpage import namedtemplate
 from zope.component import getUtility
-from zope.browserpage import ViewPageTemplateFile
+from zope.publisher.browser import BrowserPage
 
 
 class Unauthorized(BrowserPage):

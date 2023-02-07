@@ -13,12 +13,12 @@
 ##############################################################################
 """System error indicator"""
 
-import zope.interface
 import zope.browser.interfaces
+import zope.interface
 
 
 @zope.interface.implementer(zope.browser.interfaces.ISystemErrorView)
-class SystemErrorView(object):
+class SystemErrorView:
 
     def isSystemError(self):
         return True

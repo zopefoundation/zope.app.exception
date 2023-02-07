@@ -15,19 +15,21 @@
 """
 import doctest
 import unittest
-from zope.app.exception.browser.tests import BrowserTestCase
-from zope.app.exception.testing import AppExceptionLayer
+
 from zope.app.wsgi.testlayer import http
 from zope.interface.interfaces import ComponentLookupError
 
+from zope.app.exception.browser.tests import BrowserTestCase
+from zope.app.exception.testing import AppExceptionLayer
 
-class RaiseError(object):
+
+class RaiseError:
 
     def __call__(self):
         raise Exception()
 
 
-class RaiseComponentLookupError(object):
+class RaiseComponentLookupError:
 
     def __call__(self):
         raise ComponentLookupError()
@@ -55,8 +57,9 @@ class TestMisc(unittest.TestCase):
         self.assertEqual(view.title(), self.__class__.__name__)
 
     def test_interfaces(self):
-        from zope.app.exception import interfaces
         from zope.browser.interfaces import ISystemErrorView
+
+        from zope.app.exception import interfaces
         self.assertEqual(interfaces.ISystemErrorView, ISystemErrorView)
 
 
@@ -65,15 +68,16 @@ class TestUserpt(unittest.TestCase):
     layer = AppExceptionLayer
 
     def _render_with_context(self, context):
+        import os
+
         from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
         from zope.publisher.browser import TestRequest
-        import os
         path = os.path.join(os.path.abspath(
             os.path.dirname(__file__)), '..', 'user.pt')
 
         template = ViewPageTemplateFile(path)
 
-        class Instance(object):
+        class Instance:
             def __init__(self):
                 self.context = context
                 self.request = TestRequest()
@@ -102,8 +106,7 @@ def test_suite():
         # Strip leading \n
         query_str = query_str.lstrip()
         kwargs.setdefault('handle_errors', True)
-        if not isinstance(query_str, bytes):  # always true on PY3
-            query_str = query_str.encode("utf-8")
+        query_str = query_str.encode("utf-8")
         return http(wsgi_app, query_str, *args, **kwargs)
 
     systemerror = doctest.DocFileSuite(
